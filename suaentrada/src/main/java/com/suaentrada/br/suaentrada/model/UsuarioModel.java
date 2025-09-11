@@ -15,7 +15,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TBUSUARIOS")
-public class Usuario {
+public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CDUSUARIO")
@@ -30,8 +30,8 @@ public class Usuario {
     @Column(name = "NMSENHA")
     private String senhaUsuario;
 
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inscricao> inscricoes = new ArrayList<>();
+    @OneToMany(mappedBy = "usuarioModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InscricaoModel> inscricoes = new ArrayList<>();
 
 }
 

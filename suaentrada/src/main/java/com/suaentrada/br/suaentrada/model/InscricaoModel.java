@@ -15,7 +15,7 @@ import java.time.LocalTime;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TBINSCRICAO")
-public class Inscricao {
+public class InscricaoModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CDINSCRICAO")
@@ -29,10 +29,10 @@ public class Inscricao {
 
     @ManyToOne
     @JoinColumn(name = "CDUSUARIO")
-    private Usuario usuario;
+    private UsuarioModel usuarioModel;
 
     @ManyToOne
     @JoinColumn(name = "CDEVENTO")
-    private Evento evento;
+    private EventoModel eventoModel;
 
 }

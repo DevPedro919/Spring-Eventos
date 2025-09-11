@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "TBEVENTO")
-public class Evento {
+public class EventoModel {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,7 +47,7 @@ public class Evento {
     @Column(name = "NUVAGASDISPONIVEIS")
     private int vagasDisponiveisEvento;
 
-    @OneToMany(mappedBy = "evento", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Inscricao> inscricoes = new ArrayList<>();
+    @OneToMany(mappedBy = "eventoModel", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<InscricaoModel> inscricoes = new ArrayList<>();
 
 }
