@@ -8,5 +8,4 @@ import java.util.Optional;
 @Repository
 public interface InscricaoRepository extends JpaRepository<Inscricao,Long> {
     Optional<Inscricao> findById(Long codigoInscricao);
-    Optional<Inscricao> findAllById (Long codigoInscricao);
 }
