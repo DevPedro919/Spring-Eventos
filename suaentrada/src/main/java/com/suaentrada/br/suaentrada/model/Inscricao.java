@@ -1,14 +1,12 @@
 package com.suaentrada.br.suaentrada.model;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Entity
@@ -16,6 +14,7 @@ import java.time.LocalTime;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "TBINSCRICAO")
 public class Inscricao {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
