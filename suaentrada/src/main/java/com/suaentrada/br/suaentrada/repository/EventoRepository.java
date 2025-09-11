@@ -7,5 +7,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 @Repository
 public interface EventoRepository extends JpaRepository<Evento,Long> {
-    Optional<Evento> findById(Long codigoEvento);
+    Optional<Evento> findByCodigoEvento(Long codigoEvento);
+    Optional<Evento> findAllByCodigoEvento(Long codigoEvento);
+
 }
