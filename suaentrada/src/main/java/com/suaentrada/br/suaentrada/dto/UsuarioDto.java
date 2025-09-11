@@ -6,8 +6,10 @@ import jakarta.validation.constraints.Size;
 
 public record UsuarioDto (
 
+        Long codigoUsuario,
+
         @NotNull(message = "Nome precisa ser preenchido")
-        String nomeUsuario,
+         String nomeUsuario,
 
         @NotNull(message = "Email precisa ser preenchido")
         @Email
@@ -16,5 +18,8 @@ public record UsuarioDto (
         @NotNull(message = "É necessario incluir sua senha")
         @Size(min = 6, max = 100, message = "A senha precisa ser maior que 6 digitos")
         String senhaUsuario
-){
+) {
+
+
+
 }

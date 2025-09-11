@@ -5,7 +5,10 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public record EventoDto(
+
+public record EventoDto (
+
+        Long codigoEvento,
 
         @NotBlank(message = "Título é obrigatório")
         @Size(min = 3, max = 80, message = "Tamanho do título deve ser entre 3 e 80 caracteres")
@@ -31,6 +34,10 @@ public record EventoDto(
 
         @Min(value = 0, message = "O campo de vagas totais não pode ficar negativo")
         Integer vagasDisponiveisEvento
-) {
+
+){
+
+
+
 
 }

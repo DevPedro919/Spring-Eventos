@@ -1,24 +1,25 @@
 package com.suaentrada.br.suaentrada.dto;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.NotNull;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
 
-public record InscricaoDto (
+public record InscricaoDto(
+
+        Long codigoInscricao,
 
         @CreationTimestamp
-        LocalDate datainscricao,
+        LocalDate dataInscricao,
 
         @CreationTimestamp
-        LocalTime horaInscricao
+        LocalTime horaInscricao,
 
+        @NotNull(message = "O usuário é obrigatório")
+        Long codigoUsuario,
 
+        @NotNull(message = "O evento é obrigatório")
+        Long codigoEvento
 ) {
-
 }
