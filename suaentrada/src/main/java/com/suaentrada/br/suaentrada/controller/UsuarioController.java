@@ -1,35 +1,51 @@
 package com.suaentrada.br.suaentrada.controller;
 
-import com.suaentrada.br.suaentrada.model.Usuario;
+import com.suaentrada.br.suaentrada.dto.UsuarioDto;
 import com.suaentrada.br.suaentrada.service.UsuarioService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/usuario")
+@RequestMapping("/usuarios")
 @RequiredArgsConstructor
 public class UsuarioController {
-    UsuarioService usuarioService;
+
+    private final UsuarioService usuarioService;
 
     @PostMapping
-    public Usuario salvar(@RequestBody Usuario usuario){
-        return usuarioService.salvar(usuario);
+    public ResponseEntity<UsuarioDto> salvar(@Valid @RequestBody UsuarioDto usuarioDto){
+        UsuarioDto salvo = usuarioService.salvar(usuarioDto);
+        return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
     @GetMapping
-    public List<Usuario> listarTodos(){
-        return usuarioService.listarTodos();
+    public ResponseEntity<List<UsuarioDto>> listarTodos(){
+        return ResponseEntity.ok(usuarioService.listarTodos());
     }
 
     @GetMapping("/{codigoUsuario}")
-    public Usuario buscar(@PathVariable Long codigoUsuario){
-        return usuarioService.buscarPorId(codigoUsuario);
+    public ResponseEntity<UsuarioDto> buscar(@PathVariable Long codigoUsuario){
+        try {
+            UsuarioDto usuario = usuarioService.buscarPorId(codigoUsuario);
+            return ResponseEntity.ok(usuario);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
-    @DeleteMapping("/{codigoUsuario")
-    public void deletar(@PathVariable Long codigoUsuario){
-        usuarioService.deletar(codigoUsuario);
+    @DeleteMapping("/{codigoUsuario}")
+    public ResponseEntity<Void> deletar(@PathVariable Long codigoUsuario){
+        try {
+            usuarioService.deletar(codigoUsuario);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
+

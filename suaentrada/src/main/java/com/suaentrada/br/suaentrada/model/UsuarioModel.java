@@ -7,7 +7,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -19,7 +21,7 @@ public class UsuarioModel {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CDUSUARIO")
-    private Long codigoUsuario ;
+    private Long codigoUsuario;
 
     @Column(name = "NMUSUARIO")
     private String nomeUsuario;
@@ -33,6 +35,9 @@ public class UsuarioModel {
     @OneToMany(mappedBy = "usuarioModel", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InscricaoModel> inscricoes = new ArrayList<>();
 
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "TBUSUARIO_ROLES",
+            joinColumns = @JoinColumn(name = "CDUSUARIO"),
+            inverseJoinColumns = @JoinColumn(name = "CDROLE"))
+    private Set<Role> roles = new HashSet<>();
 }
-
-
