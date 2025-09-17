@@ -23,6 +23,16 @@ public class EventoController {
         return ResponseEntity.status(HttpStatus.CREATED).body(salvo);
     }
 
+    @PutMapping("/{id}")
+    public ResponseEntity<EventoDto> atualizar(@PathVariable Long id, @Valid @RequestBody EventoDto dto) {
+        try {
+            EventoDto atualizado = service.atualizar(id, dto);
+            return ResponseEntity.ok(atualizado);
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/{id}")
     public ResponseEntity<EventoDto> buscarPorId(@PathVariable Long id) {
         EventoDto dto = service.buscarPorId(id);
@@ -37,12 +47,11 @@ public class EventoController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletar(@PathVariable Long id) {
-        service.excluir(id);
-        return ResponseEntity.noContent().build();
+        try {
+            service.excluir(id);
+            return ResponseEntity.noContent().build();
+        } catch (RuntimeException e) {
+            return ResponseEntity.notFound().build();
+        }
     }
-
-
-
-
-
 }
