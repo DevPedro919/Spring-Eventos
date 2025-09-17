@@ -41,12 +41,12 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtAuthFilter jwtAuthFilter) throws Exception {
         http
-                .cors(cors -> cors.configurationSource(corsConfigurationSource())) // ADICIONAR ESTA LINHA
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
-                        .requestMatchers("/roles/**").permitAll()
+                        .requestMatchers("/roles/**").hasAnyRole("ADMIN")
                         .requestMatchers("/usuarios").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/eventos").permitAll()
                         .requestMatchers("/eventos/**").hasAnyRole("ADMIN")
