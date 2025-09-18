@@ -26,7 +26,7 @@ public class UsuarioModel {
     @Column(name = "NMUSUARIO")
     private String nomeUsuario;
 
-    @Column(name = "NMEMAIL")
+    @Column(name = "NMEMAIL", unique = true)
     private String emailUsuario;
 
     @Column(name = "NMSENHA")
