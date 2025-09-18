@@ -53,6 +53,17 @@ public class InscricaoService {
                 .toList();
     }
 
+    public List<InscricaoDto> buscarPorUsuario(String emailUsuario) {
+        UsuarioModel usuario = usuarioRepository.findByEmailUsuario(emailUsuario)
+                .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
+
+        List<InscricaoModel> inscricoes = inscricaoRepository.findByUsuarioModelCodigoUsuario(usuario.getCodigoUsuario());
+
+        return inscricoes.stream()
+                .map(InscricaoMapper::toDto)
+                .toList();
+    }
+
     public InscricaoDto buscarPorId(Long id) {
         return inscricaoRepository.findById(id)
                 .map(InscricaoMapper::toDto)
