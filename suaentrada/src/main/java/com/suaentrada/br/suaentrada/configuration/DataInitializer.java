@@ -28,7 +28,6 @@ public class DataInitializer implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
         try {
-            // Criar roles se não existirem
             Role adminRole = roleRepository.findByNomeRole("ADMIN")
                     .orElseGet(() -> {
                         Role role = new Role();
@@ -43,7 +42,6 @@ public class DataInitializer implements CommandLineRunner {
                         return roleRepository.save(role);
                     });
 
-            // Criar usuário admin se não existir
             if (!usuarioRepository.existsByEmailUsuario("admin@suaentrada.com")) {
                 UsuarioModel admin = new UsuarioModel();
                 admin.setNomeUsuario("Administrador");
@@ -58,7 +56,6 @@ public class DataInitializer implements CommandLineRunner {
                 System.out.println("Email: admin@suaentrada.com");
                 System.out.println("Senha: admin123");
                 System.out.println("Role: ADMIN");
-                System.out.println("==============================");
             } else {
                 System.out.println("Usuário admin já existe no banco.");
             }

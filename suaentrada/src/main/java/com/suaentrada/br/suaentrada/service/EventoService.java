@@ -18,7 +18,6 @@ public class EventoService {
     public EventoDto salvar(EventoDto dto) {
         EventoModel evento = EventoMapper.toEntity(dto);
 
-        // Se não foi informado vagas disponíveis, usar o total
         if (evento.getVagasDisponiveisEvento() == 0) {
             evento.setVagasDisponiveisEvento(evento.getVagasTotaisEvento());
         }
@@ -38,7 +37,6 @@ public class EventoService {
         eventoExistente.setLocalEvento(dto.localEvento());
         eventoExistente.setVagasTotaisEvento(dto.vagasTotaisEvento());
 
-        // Manter as vagas disponíveis se não foi informado
         if (dto.vagasDisponiveisEvento() != null) {
             eventoExistente.setVagasDisponiveisEvento(dto.vagasDisponiveisEvento());
         }

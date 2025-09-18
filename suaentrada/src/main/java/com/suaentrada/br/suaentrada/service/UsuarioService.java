@@ -41,7 +41,6 @@ public class UsuarioService {
             }
             usuario.setRoles(roles);
         } else {
-            // Se não especificar roles, dar role padrão de USER
             Role roleUser = roleRepository.findByNomeRole("USER")
                     .orElseThrow(() -> new RuntimeException("Role USER não encontrada."));
             usuario.getRoles().add(roleUser);
