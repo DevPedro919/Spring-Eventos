@@ -53,7 +53,7 @@ public class DataInitializer implements CommandLineRunner {
 
                 usuarioRepository.save(admin);
 
-                System.out.println("=== DADOS INICIAIS CRIADOS ===");
+                System.out.println("DADOS INICIAIS CRIADOS");
                 System.out.println("Usuário admin criado!");
                 System.out.println("Email: admin@suaentrada.com");
                 System.out.println("Senha: admin123");
