@@ -48,7 +48,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/usuarios").permitAll()
                         .requestMatchers("/roles/**").hasAnyRole("ADMIN")
                         .requestMatchers("/usuarios").hasRole("ADMIN")
-                        .requestMatchers(HttpMethod.GET, "/eventos").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/eventos").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/eventos/**").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/eventos").hasRole("USER")
                         .requestMatchers("/inscricoes/**").hasAnyRole("USER", "ADMIN")
@@ -57,27 +57,7 @@ public class SecurityConfig {
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        return http.build()
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                ;
+        return http.build();
     }
 
 

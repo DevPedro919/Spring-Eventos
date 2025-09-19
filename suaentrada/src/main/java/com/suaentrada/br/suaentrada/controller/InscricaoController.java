@@ -19,9 +19,10 @@ public class InscricaoController {
     private final InscricaoService inscricaoService;
 
     @PostMapping
-    public ResponseEntity<InscricaoDto> criar(@Valid @RequestBody InscricaoDto dto) {
+    public ResponseEntity<InscricaoDto> criar(@Valid @RequestBody InscricaoDto dto, Authentication authentication) {
         try {
-            InscricaoDto salva = inscricaoService.salvar(dto);
+            String emailUsuario = authentication.getName();
+            InscricaoDto salva = inscricaoService.salvar(dto.codigoEvento(), emailUsuario);
             return ResponseEntity.status(HttpStatus.CREATED).body(salva);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().build();
@@ -30,7 +31,7 @@ public class InscricaoController {
 
     @GetMapping
     public ResponseEntity<List<InscricaoDto>> buscarTodas(Authentication authentication) {
-        String emailUsuario = authentication.getName(); // Email do usuário logado
+        String emailUsuario = authentication.getName();
         List<InscricaoDto> minhasInscricoes = inscricaoService.buscarPorUsuario(emailUsuario);
         return ResponseEntity.ok(minhasInscricoes);
     }

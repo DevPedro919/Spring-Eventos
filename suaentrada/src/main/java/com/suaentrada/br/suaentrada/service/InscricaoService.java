@@ -23,11 +23,11 @@ public class InscricaoService {
     private final UsuarioRepository usuarioRepository;
     private final EventoRepository eventoRepository;
 
-    public InscricaoDto salvar(InscricaoDto dto) {
-        UsuarioModel usuario = usuarioRepository.findById(dto.codigoUsuario())
+    public InscricaoDto salvar(Long codigoEvento, String emailUsuario) {
+        UsuarioModel usuario = usuarioRepository.findByEmailUsuario(emailUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
-        EventoModel evento = eventoRepository.findById(dto.codigoEvento())
+        EventoModel evento = eventoRepository.findById(codigoEvento)
                 .orElseThrow(() -> new RuntimeException("Evento não encontrado"));
 
         if (evento.getVagasDisponiveisEvento() <= 0) {
@@ -54,10 +54,21 @@ public class InscricaoService {
     }
 
     public List<InscricaoDto> buscarPorUsuario(String emailUsuario) {
+        System.out.println("=== DEBUG SERVICE ===");
+        System.out.println("Email recebido: '" + emailUsuario + "'");
+
         UsuarioModel usuario = usuarioRepository.findByEmailUsuario(emailUsuario)
                 .orElseThrow(() -> new RuntimeException("Usuário não encontrado"));
 
+        System.out.println("Usuário encontrado - ID: " + usuario.getCodigoUsuario() + ", Email: '" + usuario.getEmailUsuario() + "'");
+
         List<InscricaoModel> inscricoes = inscricaoRepository.findByUsuarioModelCodigoUsuario(usuario.getCodigoUsuario());
+
+        System.out.println("Query retornou " + inscricoes.size() + " inscrições");
+        if (!inscricoes.isEmpty()) {
+            inscricoes.forEach(i -> System.out.println("  Inscrição ID: " + i.getCodigoInscricao() + ", Usuario ID: " + i.getUsuarioModel().getCodigoUsuario()));
+        }
+        System.out.println("==================");
 
         return inscricoes.stream()
                 .map(InscricaoMapper::toDto)
